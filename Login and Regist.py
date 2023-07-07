@@ -75,10 +75,13 @@ class Login(tk.Frame):
         username = name_entry.get()
         password = password_entry.get()
 
-        with open("users.txt", "a") as file:
-            file.write(f"Username: {username}, Password: {password}\n")
-
-        messagebox.showinfo("Successful Login", "You have successfully logged in!")
+        with open("users.txt", "r") as file:
+            content = file.read()
+            if username in content:
+                if password in content:
+                    messagebox.showinfo("Successful Login", "You have successfully logged in!")
+            else:
+                messagebox.showinfo("UnSuccessful Login", "You have unsuccessfully logged in!")
 
         controller.show_frame(StartPage)
 
@@ -119,7 +122,7 @@ class Register(tk.Frame):
         name = name_entry.get()
         password = password_entry.get()
 
-        with open("users.txt", "a") as file:
+        with open("users.txt", "w") as file: 
             file.write(f"Name: {name}, Password: {password}\n")
 
         messagebox.showinfo("Successful registration", "You have successfully registered!")
